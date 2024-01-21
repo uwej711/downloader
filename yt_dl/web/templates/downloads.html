@@ -3,26 +3,43 @@
     <head>
         <meta charset="UTF-8">
         <title>Downloader</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
-        <div>
-            <h1>Finished Downloads</h1>
+        <div class="container">
+            <h1 class="mt-5">Finished Downloads</h1>
             <p>Click a link to start the download of the file.</p>
 
-            <ul>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">URL</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for download in downloads %}
-                    <li>
-                        <div>
-                            <a href="/download/{{ download.filename }}">{{ download.title}} - {{ download.original_url }}</a>
-                            <form action="/download/{{ download.filename }}" method="post" style="display: inline">
-                                <button type="submit">DELETE</button>
+                    <tr>
+                        <td class="align-middle">
+                            <a href="/download/{{ download.filename }}">{{ download.title}}</a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="/download/{{ download.filename }}">{{ download.original_url }}</a>
+                        </td>
+                        <td class="align-middle">
+                            <form action="/download/{{ download.filename }}" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
-                        </div>
-                    </li>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </ul>
+                </tbody>
+            </table>
 
             <p><a href="/">Back</a></p>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
