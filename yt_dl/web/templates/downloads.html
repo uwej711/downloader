@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Downloader</title>
+    </head>
+    <body>
+        <div>
+            <h1>Finished Downloads</h1>
+            <p>Click a link to start the download of the file.</p>
+
+            <ul>
+                {% for download in downloads %}
+                    <li>
+                        <div>
+                            <a href="/download/{{ download.filename }}">{{ download.title}} - {{ download.original_url }}</a>
+                            <form action="/download/{{ download.filename }}" method="post" style="display: inline">
+                                <button type="submit">DELETE</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <p><a href="/">Back</a></p>
+        </div>
+    </body>
+</html>

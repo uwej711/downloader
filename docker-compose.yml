@@ -1,0 +1,39 @@
+version: "3.9"  # optional since v1.27.0
+
+name: downloader
+
+services:
+  redis:
+    image: docker.io/redis:7.0.10
+    command: 'redis-server --appendonly yes --save \"\"'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    healthcheck:
+        test: [ "CMD", "redis-cli", "ping" ]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  downloader:
+    build: .
+    user: "1001"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - download-data:/code/downloads
+
+volumes:
+  download-data:
+    driver: local
+  redis-data:
+    driver: local
