@@ -1,6 +1,6 @@
 FROM docker.io/python:3.11-slim-bookworm
 
-RUN apt-get update && apt-get upgrade && apt-get install -y ffmpeg
+RUN apt-get update && apt-get upgrade -y && apt-get install -y ffmpeg
 
 RUN useradd -rm -d /home/download -s /bin/bash -u 1001 download
 RUN mkdir -p /code/downloads
